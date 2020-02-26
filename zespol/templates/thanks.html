@@ -1,0 +1,49 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container content" style="position: absolute; top: 10%; left:20vw; bottom:10%;" >
+
+
+    <div class="row mt-3 mb-3">
+
+
+            <div class="col-11  bg-light">
+
+                <div class="row">
+
+
+                    <div class="col" style="background: darkgray;  height: 250px; background-image: url('{{ concert.band.image.url }}'); background-size: cover; background-repeat: no-repeat; background-position: center;" >
+
+                     </div>
+
+
+                    <div class="col" style="text-align: center;">
+
+                        <h2>{{ concert.band.name }}</h2>
+
+                                <div >
+                                <span>{{ concert.name }}</span>
+                                <br>
+                                <span>{{ concert.date |date:"j E Y" }}</span>
+                                <br>
+                                <span>{{ concert.date |date:"G:i " }}</span>
+                                    <a href="{% url 'concert-detail' concert.pk %}" class="btn btn-primary"> Kup</a>
+                            </div>
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+    </div>
+
+
+
+        </div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container content" style="position: absolute; top: 10%; left:20vw; bottom:10%; background: rgba(10,14,110,0.64);height:fit-content; min-height: 80%;" >
+
+<h1 style="text-align: center; color:white;"> Kluby</h1>
+{% for club in clubs %}
+
+    <div class="row mt-3 mb-3" >
+
+
+
+            <div class="col-11  bg-light border border-danger" style="left:5%;">
+
+                <div class="row">
+
+
+                    <div class="col" style="background: darkgray; min-height: 250px; height: inherit; background-image: url('{{ club.image.url }}'); background-size: cover; background-repeat: no-repeat; background-position: center;" >
+
+                     </div>
+
+
+                    <div class="col" style="text-align: center; background:black;">
+                        <h2 style="color:white;">
+                        <a href="{% url 'club_details' club.pk %}">{{ club.name }}</a>
+                        </h2>
+
+                        {% for concert in club.concert_set.all%}
+                                <div class="mt-1" style="background:#fffd7a;">
+                                <span>Artysta: <b>{{ concert.band.name}}</b></span>
+                                <br>
+                                 <span>Nazwa Trasy: <b>{{ concert.name }}</b></span>
+                                <br>
+                                <span> Data i godzina <b>{{ concert.date |date:"j E Y G:i" }}</b></span>
+                                <br>
+                                    <span> Adres:  <b> {{ concert.club.city }} {{ concert.club.address }}</b></span>
+                                <br>
+                                    <span> Bilety normalne: <b>{{ club.normal_tickets}}</b>  </span>
+                                <br>
+                          {% if concert.normal_tickets == 0%}
+                                     <a href="{% url 'concert-detail' concert.pk %}" class="btn btn-primary btn-block mb-1" style="display: none;"> Kup</a>
+                                <p style="color: red;"><b>Brak Biletów</b></p>
+                                {% else %}
+                                     <a href="{% url 'concert-detail' concert.pk %}" class="btn btn-danger btn-block mb-1"> Kup</a>
+                             {% endif %}
+                            </div>
+                        {%  endfor%}
+                    </div>
+
+                </div>
+            </div>
+
+
+    </div>
+
+
+{% endfor %}
+
+        <div class="row mb-5"></div>
+        </div>
+{% endblock %}

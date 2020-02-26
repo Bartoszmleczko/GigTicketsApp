@@ -1,0 +1,22 @@
+.footer{
+    color: white;
+    bottom:0;
+    left:0;
+    position: absolute;
+    width: 100%;
+    font-size: 24px;
+
+}
+#body{
+      height: 100%;
+
+}
+.navigation{
+    position: absolute;
+    left:0;
+    right:0;
+}
+.cont {
+    position: absolute;
+    top: 10%;
+}

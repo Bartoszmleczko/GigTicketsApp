@@ -1,0 +1,67 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container content" style="position: absolute; top: 10%; left:20vw; bottom:10%;" >
+
+    <div class="row mt-3 mb-3" >
+
+            <div class="col-3"></div>
+
+            <div class="col-6  bg-light border border-danger">
+
+                <div class="row">
+
+
+
+
+
+                    <div class="col p-2" style="text-align: center; background:black; font-size: 24px; color:white">
+
+                    <h1> Zmiana danych</h1>
+
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="input-group">{{ profile_form.as_ul }}</div>
+
+                        <button type="submit" class="btn btn-danger">Zapisz zmiany</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+
+    </div>
+
+    <h2 style="text-align: center;">Sugerowane</h2>
+    <div class="row bg-dark p-2">
+
+        {% for concert in suggested %}
+
+            <div class="col ml-2 view overlay" >
+            <img src="{{ concert.band.image.url }}" class="img-fluid" style="width: 340px; height: 300px;"/>
+                <div style="color: white">
+                    <span><b>Zespół: {{ concert.band.name }}</b></span>
+                    <br>
+                    <span><b>Szczegóły: {{ concert.club.city }} - {{ concert.club.name }} {{ concert.date|date:"j E Y"  }}</b></span>
+
+                </div>
+                <a href="{% url 'concert-detail' concert.pk %}" class="btn btn-danger btn-block" style=""> Kup</a>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+
+        <div class="row mb-5"></div>
+        </div>
+
+
+{% endblock %}
+
+
+
+
+

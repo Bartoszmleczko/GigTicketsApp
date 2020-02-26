@@ -1,0 +1,84 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container" style="position: absolute; top: 10%; left:20vw; bottom:10%; right: auto;" >
+
+    <div class="row mt-3 mb-3">
+
+
+            <div class="col-12  bg-light " style="height: 300px;">
+
+                <div class="row" style="background:black; color:white;">
+                    <div class="col-4" style="background: darkgray;  height: 300px; background-image: url('{{ concert.band.image.url }}'); background-size: cover; background-repeat: no-repeat; background-position: center;" >
+                     </div>
+
+
+                    <div class="col-4" style="text-align: center;">
+
+                        <h2>{{ concert.band.name }}</h2>
+
+                                <div   style="font-size: 20px;">
+                                <span > Nazwa Trasy: <b>{{ concert.name }}</b></span>
+                                <br>
+                                <span> Dzień: <b>{{ concert.date |date:"j E Y" }}</b></span>
+                                <br>
+                                <span>Godzina: <b>{{ concert.date |date:"G:i " }}</b></span>
+                                <br>
+                                <span>Miejsce: <b>{{concert.club.name}} {{ concert.club.address }}</b></span>
+                                    <br>
+                                <span>Adres: <b>{{ concert.club.address }}</b></span>
+                                    <br>
+                                <span>Cena: <b>{{ concert.ticket_price }}zł</b></span>
+                            </div>
+                    </div>
+                    <div class="col-4" style="text-align: center;">
+                                 <h2>Dane klienta</h2>
+
+                                <div style="font-size: 20px;">
+                                <span>Imię: <b>{{ profile.first_name }}</b></span>
+                                <br>
+                                <span>Nazwisko: <b>{{profile.last_name }}</b></span>
+                                <br>
+                                <span>Email: <b>{{ profile.email }}</b></span>
+
+                            </div>
+
+                              <a href="{%url  'thanks' concert.pk %}" class="btn btn-danger btn-block btn-lg mt-3"> Zamów Bilet</a>
+                    <a href="/profile-update" class=" btn btn-success btn-lg mt-2 ">Zmień swoje dane</a>
+
+                    </div>
+
+                </div>
+            </div>
+    </div>
+
+    <h2 style="text-align: center;">Sugerowane</h2>
+    <div class="row bg-dark p-2 mb-2">
+
+        {% for concert in suggested %}
+
+            <div class="col ml-2 view overlay" >
+            <img src="{{ concert.band.image.url }}" class="img-fluid" style="width: 340px; height: 300px;"/>
+                <div style="color: white">
+                    <span><b>Zespół: {{ concert.band.name }}</b></span>
+                    <br>
+                    <span><b>Szczegóły: {{ concert.club.city }} - {{ concert.club.name }} {{ concert.date|date:"j E Y"  }}</b></span>
+
+                </div>
+                          {% if concert.normal_tickets == 0%}
+                                     <a href="{% url 'concert-detail' concert.pk %}" class="btn btn-primary btn-block mb-1" style="display: none;"> Kup</a>
+                                <p style="color: red;"><b>Brak Biletów</b></p>
+                                {% else %}
+                                     <a href="{% url 'concert-detail' concert.pk %}" class="btn btn-danger btn-block mb-1"> Kup</a>
+                             {% endif %}
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+
+        </div>
+{% endblock %}
